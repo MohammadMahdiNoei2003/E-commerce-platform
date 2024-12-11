@@ -8,17 +8,70 @@ datasource db {
 }
 
 model User {
-  id            Int      @id @default(autoincrement())
+  id            Int       @id @default(autoincrement())
   firstName     String
   lastName      String
-  email         String   @unique
+  email         String    @unique
   hashedPassword String
   dob           DateTime
-  isActive      Boolean  @default(true)
-  isDelete      Boolean  @default(false)
+  isActive      Boolean   @default(true)
+  isDelete      Boolean   @default(false)
   profileImage  String?
-  phoneNumber   String  @unique
-  createAt      DateTime @default(now())
-  updateAt      DateTime @updatedAt
+  phoneNumber   String?   @unique
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  roles         UserRole[]
+}
+
+model Role {
+  id            Int       @id @default(autoincrement())
+  name          String    @unique
+  description   String?   @db.Text
+  isActive      Boolean   @default(true)
+  isDelete      Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  users         UserRole[]
+  permissions   RolePermission[]
+}
+
+model Permission {
+  id            Int              @id @default(autoincrement())
+  name          String           @unique
+  description   String?          @db.Text
+  isActive      Boolean          @default(true)
+  isDelete      Boolean          @default(false)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  roles         RolePermission[] 
+}
+
+model UserRole {
+  id            Int              @id @default(autoincrement())
+  userId        Int               
+  roleId        Int
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  
+  user          User             @relation(fields: [userId], references: [id])
+  role          Role             @relation(fields: [roleId], references: [id])
+
+  @@unique([userId, roleId])
+}
+
+model RolePermission {
+  id            Int              @id @default(autoincrement())
+  roleId        Int
+  permissionId  Int
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  role          Role             @relation(fields: [roleId], references: [id])
+  permission    Permission       @relation(fields: [permissionId], references: [id])
+
+  @@unique([roleId, permissionId])
 }
 
