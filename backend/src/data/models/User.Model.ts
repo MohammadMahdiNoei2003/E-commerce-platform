@@ -8,9 +8,9 @@ export interface User {
     isActive: boolean;
     isDelete: boolean;
     profileImage?: string | null;
-    phoneNumber: string;
-    createAt: Date;
-    updateAt: Date;
+    phoneNumber?: string | null;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export class UserModel implements User {
@@ -23,9 +23,9 @@ export class UserModel implements User {
     isActive: boolean;
     isDelete: boolean;
     profileImage?: string | null;
-    phoneNumber: string;
-    createAt: Date;
-    updateAt: Date;
+    phoneNumber?: string | null;
+    createdAt: Date;
+    updatedAt: Date;
 
     constructor(data: Partial<User>) {
             this.id = data.id!;
@@ -37,8 +37,8 @@ export class UserModel implements User {
             this.isActive = data.isActive ?? true;
             this.isDelete = data.isDelete ?? false;
             this.profileImage = data.profileImage ?? null;
-            this.phoneNumber = data.phoneNumber!;
-            this.createAt = data.createAt ?? new Date();
-            this.updateAt = data.updateAt ?? new Date();
+            this.phoneNumber = data.phoneNumber ?? null;
+            this.createdAt = data.createdAt ?? new Date();
+            this.updatedAt = data.updatedAt ?? new Date();
         }
 }
