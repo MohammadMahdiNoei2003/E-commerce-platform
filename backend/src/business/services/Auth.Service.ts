@@ -32,6 +32,9 @@ export class AuthService {
         if (!user || !(await this.hashService.comparePasswords(password, user.hashedPassword))) {
             throw new Error('Invalid credentials');
         }
+        
+        await this.userRepository.addLoginTimestamp(user.id);
+        
         return this.tokenService.generateToken({ id: user.id, email: user.email });
     }
 

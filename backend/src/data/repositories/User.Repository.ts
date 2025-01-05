@@ -87,4 +87,20 @@ export class UserRepository {
             where: filter,
         });
     }
+
+    async addLoginTimestamp(userId: number): Promise<void> {
+        await prisma.loginTimestamp.create({
+            data: {
+                userId,
+                timestamp: new Date(),
+            },
+        });
+    }
+
+    async getLoginTimestampsByUserId(userId: number): Promise<{timestamp: Date}[]> {
+        return await prisma.loginTimestamp.findMany({
+            where: {userId},
+            select: {timestamp: true}
+        });
+    }
 }

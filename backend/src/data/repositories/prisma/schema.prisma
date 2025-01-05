@@ -22,6 +22,7 @@ model User {
   updatedAt     DateTime  @updatedAt
 
   roles         UserRole[]
+  loginTimestamps  LoginTimestamp[]
 }
 
 model Role {
@@ -75,3 +76,10 @@ model RolePermission {
   @@unique([roleId, permissionId])
 }
 
+model LoginTimestamp {
+  id        Int      @id @default(autoincrement())
+  userId    Int      
+  timestamp DateTime @default(now())
+
+  user          User             @relation(fields: [userId], references: [id])
+}
