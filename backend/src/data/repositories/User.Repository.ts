@@ -40,6 +40,14 @@ export class UserRepository {
         return await prisma.user.update({ where: { id }, data: userData });
     }
 
+    async updatePassword(id: number, hashedPassword: string): Promise<void> {
+        const user = await this.findById(id);
+        if (!user) {
+            throw new Error('User not found');
+        }
+        user.hashedPassword = hashedPassword;
+    }
+
     async delete(id: number): Promise<void> {
         await prisma.user.delete({ where: { id } });
     }
