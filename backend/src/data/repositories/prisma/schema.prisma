@@ -22,6 +22,11 @@ model User {
   updatedAt     DateTime  @updatedAt
 
   roles         UserRole[]
+<<<<<<< Updated upstream
+=======
+  loginTimestamps  LoginTimestamp[]
+  cart          Cart?
+>>>>>>> Stashed changes
 }
 
 model Role {
@@ -75,3 +80,92 @@ model RolePermission {
   @@unique([roleId, permissionId])
 }
 
+<<<<<<< Updated upstream
+=======
+model LoginTimestamp {
+  id        Int      @id @default(autoincrement())
+  userId    Int      
+  timestamp DateTime @default(now())
+
+  user          User             @relation(fields: [userId], references: [id])
+}
+
+model Cart {
+  id             Int       @id @default(autoincrement())
+  userId         Int       @unique
+  isActive       Boolean   @default(true)
+  isDelete       Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  user           User      @relation(fields: [userId], references: [id])
+  cartItems      CartItem[]
+}
+
+model Product {
+  id             Int       @id @default(autoincrement())
+  name           String
+  description    String?   @db.Text
+  price          Float
+  stock          Int       @default(0)
+  isActive       Boolean   @default(true)
+  isDelete       Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  cartItems      CartItem[]
+  categories     ProductCategory[]
+  prices         Price[] 
+}
+
+model Category {
+  id             Int       @id @default(autoincrement())
+  name           String    @unique
+  description    String?   @db.Text
+  isActive       Boolean   @default(true)
+  isDelete       Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  products       ProductCategory[]
+}
+
+model CartItem {
+  id             Int       @id @default(autoincrement())
+  cartId         Int
+  productId      Int
+  quantity       Int       @default(1)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  cart           Cart @relation(fields: [cartId], references: [id])
+  product        Product       @relation(fields: [productId], references: [id])
+
+  @@unique([cartId, productId])
+}
+
+model ProductCategory {
+  id             Int       @id @default(autoincrement())
+  productId      Int
+  categoryId     Int
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  product        Product    @relation(fields: [productId], references: [id])
+  category       Category   @relation(fields: [categoryId], references: [id])
+
+  @@unique([productId, categoryId])
+}
+
+model Price {
+  id             Int       @id @default(autoincrement())
+  productId      Int
+  price          Float
+  validFrom      DateTime  
+  validTo        DateTime? 
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  product        Product    @relation(fields: [productId], references: [id])
+}
+>>>>>>> Stashed changes
