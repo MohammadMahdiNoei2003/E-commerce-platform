@@ -1,0 +1,146 @@
+.Singup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px 10px 100px;
+
+}
+
+.container-form {
+    position: relative;
+    transition: all 150ms 50ms;
+}
+
+.form {
+    background: rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 1.5rem;
+    color: black;
+    font-size: 1.2rem;
+    height: 50vh;
+}
+
+.form-header {
+    color: black;
+    border-bottom: 1px solid black;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 1.6rem;
+    font-size: 1.6rem;
+}
+
+.form-input {
+    padding: 1rem;
+    border: 1px solid black;
+    outline: none;
+    width: 100%;
+    transition: all 150ms 50ms;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.25);
+    }
+
+    &::placeholder {
+        color: white;
+    }
+
+}
+
+.form-but {
+    padding: 1rem;
+    border: 1px solid black;
+    outline: none;
+    width: 100%;
+    transition: all 150ms 50ms;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.25);
+    }
+}
+
+.bul {
+    position: absolute;
+    /* height: 75px; */
+    /* width: 75px; */
+    /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
+    /* backdrop-filter: blur(20px); */
+    /* -webkit-backdrop-filter: blur(20px); */
+    /* border-radius: 10; */
+    /* border: 1px solid rgba(0, 0, 0, 0.18); */
+    animation: spin 4s infinite;
+}
+
+.red {
+    top: 70px;
+    left: -70px;
+    /* background: rgba(255, 0, 0, 0.75); */
+    background-color: black;
+    
+}
+
+.blue {
+    bottom: 70px;
+    right: -70px;
+    /* background: rgba(0, 0, 255, 0.75); */
+    background-color: black;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.star {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    background-color: inherit;
+    transform: rotate(45deg);
+    backdrop-filter: blur(20px);
+}
+
+.MBul {
+    width: inherit;
+    height: inherit;
+    border-radius: 100;
+    background-color: white;
+    position: absolute;
+    border-radius: 100%;
+}
+
+
+.bul1 {
+    top: -35px;
+    border-radius: 0 0 100% 100%;
+}
+
+.bul2 {
+    left: -35px;
+    border-radius: 0 100% 100% 0;
+}
+
+.bul3 {
+    bottom: -35px;
+    border-radius: 100% 100% 0 0;
+}
+
+.bul4 {
+    right: -35px;
+    border-radius: 100% 0 0 100%;
+}

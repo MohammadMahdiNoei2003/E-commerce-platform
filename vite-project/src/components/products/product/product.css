@@ -1,0 +1,123 @@
+.ProductCard {
+    background-color: #fff;
+    box-shadow: 1px 1px 20px -12px black;
+    border-radius: 1rem;
+    width: 100%;
+    padding: 1rem;
+    padding-left: 2rem;
+}
+
+.ProductCard-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.ProductCard-Product-id {}
+
+.ProductCard-total-price {}
+
+.ProductCard_objecr {
+    font-size: 1rem;
+    padding-top: 1rem;
+}
+
+.ProductCard_objecr_information {
+    display: flex;
+    align-items: center;
+    font-size: .9rem;
+}
+
+.ProductCard_objecr_information-history {
+    padding-right: .5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+
+    div {
+        color: #283593;
+    }
+}
+
+.ProductCard_objecr_settings {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 1rem;
+    font-size: .8rem;
+    padding-top: .6rem;
+}
+.but {
+    height: 2rem;
+    padding: 0 1rem;
+    font-size: .7rem;
+
+}
+
+.ProductCard_objecr_settings-viewAndUpdate {
+    .but {
+        background-color: #5C6BC0;
+        border: 1px solid #283593;
+        color: #fff;
+    }
+}
+
+.ProductCard_Product {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-top: 1rem;
+}
+
+.ProductCard_Product-img {
+    height: 5rem;
+    width: 5rem;
+    overflow: hidden;
+    border-radius: .5rem;
+
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
+.ProductCard_Product_discription {
+    width: 700px;
+    /* overflow: hidden; */
+    /* overflow-wrap: ; */
+    padding-left: 1rem;
+    font-size: 1rem;
+}
+
+.ProductCard_Product_discription-name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: 500;
+    padding-bottom: .3rem;
+}
+
+
+
+
+
+
+
+
+
+
+.discription-id {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    span {
+        color: #283593;
+        padding-left: .2rem;
+    }
+}
+

@@ -1,0 +1,19 @@
+.Customers {
+    width: 100%;
+    height: 100%;
+    overflow-y:auto ;
+}
+
+.Customers-root {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+
+    .CustomerCard {
+        width: 100%;
+        /* max-width: 780px; */
+        max-width: 510px;
+    }
+}
