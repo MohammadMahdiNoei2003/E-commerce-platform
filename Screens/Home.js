@@ -8,6 +8,7 @@ import {
   ScrollView,
   RefreshControl,
   ViewBase,
+  Button,
 } from "react-native";
 import Header from "../Components/Home/Header";
 import NewArrival from "../Components/Home/NewArrival";
@@ -42,23 +43,24 @@ const Home = () => {
       >
         <View style={styles.container_bg_img_text}>
           <Text style={styles.text_bg}>FOOOD</Text>
+          {/* <Button
+            title="ss"
+            onPress={() => {
+              navigation.navigate("LogIn");
+            }}
+          /> */}
         </View>
       </ImageBackground>
-
       {/* new arrival */}
       <NewArrival />
-
       {/* Brands section */}
-      <Brands />
+      {/* <Brands /> */}
 
-      <View style={styles.hhsgfg}>
-        <Text>ggddd</Text>
-      </View>
-      <Text>hello</Text>
+      <View style={styles.hhsgfg}>{/* <Text>ggddd</Text> */}</View>
+      {/* <Text>hello</Text>
       <Text>ggddd</Text>
       <Text>hello</Text>
-      <Text>ggddd</Text>
-
+      <Text>ggddd</Text> */}
       {/* <Text>dd</Text> */}
       {/* </View> */}
     </ScrollView>
@@ -66,7 +68,8 @@ const Home = () => {
 };
 const styles = StyleSheet.create({
   container_img: {
-    backgroundColor: "blue",
+    backgroundColor: "#A9A9A9",
+
     flexGrow: 1,
     // height: "100%",
   },
@@ -83,7 +86,6 @@ const styles = StyleSheet.create({
   },
   text_bg: {
     color: "white",
-    backgroundColor: "blue",
   },
   container_bg_img_text: {
     // flex: 1,
@@ -91,9 +93,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // backgroundColor: "whites",
   },
-  hhsgfg: {
-    backgroundColor: "#fcc",
-  },
+  hhsgfg: {},
 });
 
 export default Home;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   View,
@@ -11,7 +12,8 @@ import {
 } from "react-native";
 
 const NewArrival = () => {
-  const Data = ["All", "LapTop", "mobileDatas", "ff"];
+  const navigation = useNavigation();
+  const Data = ["All", "LapTop", "mobileDatas"];
   const mobileDatas = [
     {
       model: "Apple Iphone 13",
@@ -56,27 +58,29 @@ const NewArrival = () => {
       data: "8GB RAM, 128GB Storage",
     },
   ];
-  // const dd = "mobileDatas";
-  // const []
 
-  const [currentCategory, setCurrentCategory] = useState([]);
+  const [currentCategory, setCurrentCategory] = useState(laptopDatas);
+  const [currentCategoryState, setCurrentCategoryState] = useState("LapTop");
 
   // Handler for category selection
   const handleCategoryPress = (category) => {
     if (category === "All") {
       setCurrentCategory([...mobileDatas, ...laptopDatas]);
+      setCurrentCategoryState("All");
     } else if (category === "mobileDatas") {
       setCurrentCategory(mobileDatas);
+      setCurrentCategoryState("mobileDatas");
     } else if (category === "LapTop") {
       setCurrentCategory(laptopDatas);
+      setCurrentCategoryState("LapTop");
     } else {
-      setCurrentCategory([]); // "ff" category or unknown case
+      setCurrentCategory([]);
     }
   };
   return (
     <View stfeyle={styles.container}>
       <View style={styles.header}>
-        <Text>NEW ARRAiVAl</Text>
+        <Text>Categories</Text>
       </View>
       <View style={styles.main_container}>
         {/* navbar of NewArrival */}
@@ -94,7 +98,13 @@ const NewArrival = () => {
                 style={styles.navbar_item}
                 key={index.toString()}
               >
-                <Text style={styles.navItemText}>{item}</Text>
+                <Text
+                  style={
+                    item === currentCategoryState ? styles.navItemText : null
+                  }
+                >
+                  {item}
+                </Text>
               </Pressable>
             )}
             //   extraData={selectedId}
@@ -104,7 +114,19 @@ const NewArrival = () => {
         <View style={styles.container_body}>
           {currentCategory.length > 0 ? (
             currentCategory.slice(0, 4).map((data, index) => (
-              <Pressable style={styles.body_item} key={index}>
+              <Pressable
+                // style={styles.body_item}
+                onPress={() => {
+                  navigation.navigate("Product");
+                }}
+                key={index}
+                style={({ pressed }) => [
+                  {
+                    backgroundColor: pressed ? "rgb(80, 81, 82)" : null,
+                  },
+                  styles.body_item,
+                ]}
+              >
                 <Image style={styles.body_item_img} source={data.img} />
                 <View>
                   <Text>{data.model}</Text>
@@ -129,13 +151,22 @@ const NewArrival = () => {
 //style CSS
 const styles = StyleSheet.create({
   main_container: {
-    backgroundColor: "#39f",
+    // backgroundColor: "#39f",
     padding: 10,
+  },
+  header: {
+    // textAlign: "center",,
+
+    marginTop: 16,
+    alignItems: "center",
+    // backgroundColor: "red",
   },
   navbar: {
     // flex: 1,
     // flexDirection: "row",
-    backgroundColor: "red",
+    // backgroundColor: "red",
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
     margin: 10,
   },
   navbar_list: {
@@ -150,7 +181,12 @@ const styles = StyleSheet.create({
     padding: 7,
     // margin: 2,
     // alignItems: "center",
-    backgroundColor: "green",
+    // backgroundColor: "green",
+  },
+  navItemText: {
+    // textDecorationLine: "underline",
+    // texeDe
+    borderBottomWidth: 1,
   },
   container_body: {
     flexDirection: "row",
@@ -160,7 +196,8 @@ const styles = StyleSheet.create({
   body_item: {
     width: "47%",
     height: 300,
-    backgroundColor: "#935",
+    // backgroundColor: "#935",
+    borderWidth: 1,
 
     margin: 5,
   },
@@ -174,9 +211,11 @@ const styles = StyleSheet.create({
     margin: 10,
     flexDirection: "row",
     justifyContent: "center",
-    backgroundColor: "red",
+    // backgroundColor: "red",
     alignItems: "center",
     alignSelf: "center",
+    borderWidth: 1,
+    // backgroundColor: "blue",
   },
   button_more_icon: {
     padding: 10,

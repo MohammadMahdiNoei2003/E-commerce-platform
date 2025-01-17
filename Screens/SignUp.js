@@ -3,14 +3,7 @@ import { View, Text, StyleSheet, Pressable, TextInput } from "react-native";
 import Header from "../Components/Home/Header";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useAuth } from "../Contexts/ AuthContext";
-import { useNavigation } from "@react-navigation/native";
-
-const LogIn = () => {
-  const navigation = useNavigation();
-
-  // const [formData, setFormData] = useState({ email: "", password: "" });
-  const { isAuthenticated, user, login } = useAuth();
+const SignUp = () => {
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -24,10 +17,6 @@ const LogIn = () => {
     }),
     onSubmit: (values) => {
       console.log("values : " + values);
-
-      login({ email: values.email });
-      console.log(user.email);
-      navigation.navigate("Home");
     },
   });
   return (
@@ -35,7 +24,7 @@ const LogIn = () => {
       <Header />
       <View style={styles.form_container}>
         <View style={styles.form}>
-          <Text>LOGIN</Text>
+          <Text>SIGNUP</Text>
           <TextInput
             style={styles.input_text}
             onChangeText={formik.handleChange("email")}
@@ -66,14 +55,7 @@ const LogIn = () => {
             style={[styles.input_text, styles.login_button]}
             onPress={formik.handleSubmit}
           >
-            <Text style={styles.login_button_text}>LogIn</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => {
-              navigation.navigate("SignUp");
-            }}
-          >
-            <Text style={{ textDecorationLine: "underline" }}>SignUp</Text>
+            <Text style={styles.login_button_text}>SignUp</Text>
           </Pressable>
         </View>
       </View>
@@ -111,4 +93,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LogIn;
+export default SignUp;
