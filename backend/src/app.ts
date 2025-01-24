@@ -1,8 +1,8 @@
 import express from 'express';
 
-import userRouter from './ui/routes/User.Routes';
-import authRouter from './ui/routes/Auth.Routes';
-import productRouter from './ui/routes/Product.Routes';
+import userRouter from './presentation/routes/User.Routes';
+import authRouter from './presentation/routes/Auth.Routes';
+import productRouter from './presentation/routes/Product.Routes';
 import { errorHandler } from './middlewares/errorHandler';
 
 const app = express();
