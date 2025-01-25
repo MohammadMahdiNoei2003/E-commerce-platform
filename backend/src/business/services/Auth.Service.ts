@@ -34,4 +34,18 @@ export class AuthService {
         }
         return this.tokenService.generateToken({ id: user.id, email: user.email });
     }
+
+    async logoutUser(token: string): Promise<void> {
+        await this.tokenService.invalidateToken(token);
+    }
+
+    async resetPassword(email: string, newPassword: string): Promise<void> {
+        const user = await this.userRepository.findByEmail(email);
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        const hashedPassword = await this.hashService.hashPassword(newPassword);
+        await this.userRepository.updatePassword(user.id, hashedPassword);
+    }
 }
