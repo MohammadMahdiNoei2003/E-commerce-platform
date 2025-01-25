@@ -22,11 +22,8 @@ model User {
   updatedAt     DateTime  @updatedAt
 
   roles         UserRole[]
-<<<<<<< Updated upstream
-=======
   loginTimestamps  LoginTimestamp[]
   cart          Cart?
->>>>>>> Stashed changes
 }
 
 model Role {
@@ -80,8 +77,6 @@ model RolePermission {
   @@unique([roleId, permissionId])
 }
 
-<<<<<<< Updated upstream
-=======
 model LoginTimestamp {
   id        Int      @id @default(autoincrement())
   userId    Int      
@@ -168,4 +163,3 @@ model Price {
 
   product        Product    @relation(fields: [productId], references: [id])
 }
->>>>>>> Stashed changes
