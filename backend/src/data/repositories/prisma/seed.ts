@@ -531,8 +531,13 @@ async function main() {
         });
 
         if (states) {
+            const existingCity = await prisma.city.findFirst({
+                where: { name: cityData.name},
+                select: { id: true}
+            }); 
+
             await prisma.city.upsert({
-                where: { name: cityData.name },
+                where: { id: existingCity?.id || 0 },
                 update: {},
                 create: {
                     name: cityData.name,
