@@ -18,6 +18,7 @@ export class AuthController {
         const { email, password } = req.body;
         try {
             const token = await this.authService.loginUser(email, password);
+            console.log(`User with email ${email} logged in.`);
             return res.status(200).json({ token });
         } catch (error: any) {
             return res.status(401).json({ error: error.message });
@@ -32,6 +33,7 @@ export class AuthController {
 
         try {
             await this.authService.logoutUser(token);
+            console.log(`User with email ${req.body.email} logged out.`);
             return res.status(200).json({ message: "Logged out successfully." });
         } catch (error: any) {
             return res.status(400).json({ error: error.message });
