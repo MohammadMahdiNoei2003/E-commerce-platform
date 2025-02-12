@@ -24,6 +24,9 @@ model User {
   roles         UserRole[]
   loginTimestamps  LoginTimestamp[]
   cart          Cart?
+  addresses      Address[]
+  orders Order[]
+  payments       Payment[] 
 }
 
 model Role {
@@ -111,6 +114,7 @@ model Product {
   cartItems      CartItem[]
   categories     ProductCategory[]
   prices         Price[] 
+  orderItems OrderItem[]
 }
 
 model Category {
@@ -163,3 +167,131 @@ model Price {
 
   product        Product    @relation(fields: [productId], references: [id])
 }
+
+model State {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  isActive  Boolean   @default(true)
+  isDelete  Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  cities    City[]
+}
+
+model City {
+  id        Int       @id @default(autoincrement())
+  name      String
+  stateId   Int
+  isActive  Boolean   @default(true)
+  isDelete  Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  state     State     @relation(fields: [stateId], references: [id])
+  addresses Address[]
+}
+
+model Address {
+  id         Int      @id @default(autoincrement())
+  address    String
+  postalCode String
+  userId     Int
+  cityId     Int
+  isActive   Boolean @default(true)
+  isDelete   Boolean @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  city       City    @relation(fields: [cityId], references: [id])
+  user       User   @relation(fields: [userId], references: [id])
+  shipping Shipping[]
+}
+
+
+model Order {
+  id          Int        @id @default(autoincrement())
+  userId      Int
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status      OrderStatus @default(PENDING)
+  orderItems  OrderItem[]
+  totalAmount Decimal    @default(0)  
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  payments    Payment[]
+  shipping    Shipping[]
+}
+
+model OrderItem {
+  id         Int       @id @default(autoincrement())
+  orderId    Int
+  order      Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId  Int
+  product    Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity   Int
+  priceAtOrder Decimal
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+model Payment {
+  id             Int        @id @default(autoincrement())
+  orderId        Int        @unique
+  userId         Int
+  amount         Decimal    @default(0)
+  status         PaymentStatus @default(PENDING)
+  method         PaymentMethod
+  transactionId  String?    @unique
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  order          Order      @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  user           User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum PaymentMethod {
+  CREDIT_CARD
+  PAYPAL
+  WALLET
+  CASH
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  REFUNDED
+}
+
+model Shipping {
+  id                Int             @id @default(autoincrement())
+  orderId           Int             @unique
+  addressId         Int
+  status            ShippingStatus  @default(PENDING)
+  trackingNumber    String?         @unique
+  estimatedDelivery DateTime?
+  shippedAt         DateTime?
+  deliveredAt       DateTime?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  address Address @relation(fields: [addressId], references: [id], onDelete: Cascade)
+}
+
+
+enum ShippingStatus {
+  PENDING
+  SHIPPED
+  IN_TRANSIT
+  DELIVERED
+  CANCELLED
+}
+
