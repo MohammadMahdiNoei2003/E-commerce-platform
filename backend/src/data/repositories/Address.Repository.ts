@@ -9,7 +9,7 @@ export class AddressRepository {
 
     async getUserAddress(userId: number) {
         return await prisma.address.findMany({
-            where: { userId },
+            where: { userId: userId },
             include: {
                 city: {
                     include: {
@@ -29,21 +29,17 @@ export class AddressRepository {
 
     async deleteAddress(addressId: number) {
         return await prisma.address.delete({
-            where: {id: addressId}
+            where: { id: addressId }
         });
     }
 
     async getStates() {
-        return await prisma.state.findMany({
-            include: {
-                cities: true
-            }
-        });
+        return await prisma.state.findMany();
     }
 
     async getCitiesByState(stateId: number) {
         return await prisma.city.findMany({
-            where: {id: stateId}
+            where: { stateId: stateId }
         });
     }
 }

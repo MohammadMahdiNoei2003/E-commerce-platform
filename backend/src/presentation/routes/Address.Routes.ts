@@ -10,7 +10,7 @@ router.get('/:userId', asyncHandler(addressController.getAddress.bind(addressCon
 router.put('/:addressId', asyncHandler(addressController.updateAddress.bind(addressController)));
 router.delete('/:addressId', asyncHandler(addressController.deleteAddress.bind(addressController)));
 
-router.get('/states', asyncHandler(addressController.getStates.bind(addressController)));
-router.get('/cities/:stateId', asyncHandler(addressController.getCities.bind(addressController)));
+router.get('/states/all', asyncHandler(addressController.getStates.bind(addressController)));
+router.get('/states/:stateId/cities', asyncHandler(addressController.getCities.bind(addressController)));
 
 export default router;
